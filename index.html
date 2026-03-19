@@ -450,12 +450,12 @@
         <input type="text" id="name" placeholder="Your name" required />
       </div>
       <div class="field-group">
-        <label for="attendance">Attendance *</label>
+        <label for="attendance">Will you attend our wedding? *</label>
         <select id="attendance" required>
           <option value="" disabled selected>Please select…</option>
-          <option value="yes_in_person">Attending in person</option>
-          <option value="yes_online">Attending online</option>
-          <option value="no">Unable to attend</option>
+          <option value="Yes">Attending in person</option>
+          <option value="Online">Can only attend online</option>
+          <option value="No">Unable to attend</option>
         </select>
       </div>
       <div class="field-group">
@@ -463,14 +463,16 @@
         <select id="guests">
           <option value="1">1</option>
           <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
         </select>
       </div>
       <div class="field-group">
+        <label for="email">Your email for updates:</label>
+        <input type="email" id="email" name="email">
+      </div>
+      <!-- <div class="field-group">
         <label for="message">Message for the couple (optional)</label>
         <textarea id="message" placeholder="Wishes, prayers, love…"></textarea>
-      </div>
+      </div> -->
       <button type="submit" class="btn">Send RSVP</button>
     </form>
 
@@ -596,12 +598,15 @@
 
       Example pre-filled URL looks like:
       https://docs.google.com/forms/d/e/XXXX/formResponse?entry.123456789=Name&entry.987654321=yes_in_person&...
+
+      Real link:
+      https://docs.google.com/forms/d/e/1FAIpQLSd4mlJjoPUvbYz6XhqwFdLPrzMKhfHonkbz6r8Oyety-np4mQ/viewform?usp=pp_url&entry.2606285=aaa&entry.877086558=Yes&entry.1127349455=1&entry.1498135098=asdadasd@asd.com
     */
-    const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/formResponse';
-    const ENTRY_NAME       = 'entry.XXXXXXXXX'; // ← replace with your entry ID
-    const ENTRY_ATTENDANCE = 'entry.XXXXXXXXX'; // ← replace
-    const ENTRY_GUESTS     = 'entry.XXXXXXXXX'; // ← replace
-    const ENTRY_MESSAGE    = 'entry.XXXXXXXXX'; // ← replace
+    const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSd4mlJjoPUvbYz6XhqwFdLPrzMKhfHonkbz6r8Oyety-np4mQ/formResponse';
+    const ENTRY_NAME       = 'entry.2606285'; // ← name
+    const ENTRY_ATTENDANCE = 'entry.877086558'; // ← attendance
+    const ENTRY_GUESTSNUM     = 'entry.1127349455'; // ← number of guest(s)
+    const ENTRY_EMAIL    = 'entry.1498135098'; // ← email
 
     document.getElementById('rsvp-form').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -609,7 +614,7 @@
       const name       = document.getElementById('name').value.trim();
       const attendance = document.getElementById('attendance').value;
       const guests     = document.getElementById('guests').value;
-      const message    = document.getElementById('message').value.trim();
+      const email    = document.getElementById('email').value.trim();
 
       if (!name || !attendance) {
         alert('Please fill in your name and attendance.');
@@ -620,8 +625,8 @@
       const params = new URLSearchParams({
         [ENTRY_NAME]:       name,
         [ENTRY_ATTENDANCE]: attendance,
-        [ENTRY_GUESTS]:     guests,
-        [ENTRY_MESSAGE]:    message,
+        [ENTRY_GUESTSNUM]:     guests,
+        [ENTRY_EMAIL]:    email,
       });
 
       const iframe = document.createElement('iframe');

@@ -12,13 +12,25 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cream:   #f5f0e8;
-      --ivory:   #faf7f2;
-      --ink:     #1c1a17;
-      --stone:   #7a7468;
-      --gold:    #b89c6e;
-      --gold-lt: #d4bb8f;
-      --border:  rgba(184,156,110,0.30);
+      --cream:   #e6e6e6;
+      --ivory:   #f4f4f4;
+      --ink:     #1c1c1c;
+      --stone:   #6a6a6a;
+      --gold:    #767676;
+      --gold-lt: #9e9e9e;
+      --border:  rgba(118,118,118,0.28);
+      --nav-bg:  rgba(244,244,244,0.88);
+    }
+
+    [data-theme="dark"] {
+      --cream:   #1e1e1e;
+      --ivory:   #141414;
+      --ink:     #e0e0e0;
+      --stone:   #8e8e8e;
+      --gold:    #868686;
+      --gold-lt: #a6a6a6;
+      --border:  rgba(118,118,118,0.15);
+      --nav-bg:  rgba(20,20,20,0.88);
     }
 
     html { scroll-behavior: smooth; }
@@ -34,15 +46,15 @@
     /* ── Nav ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; justify-content: center; gap: 2.5rem;
-      padding: 1.1rem 2rem;
-      background: rgba(250,247,242,0.88);
+      display: flex; justify-content: flex-start; gap: 2.5rem;
+      padding: 1.1rem 12rem 1.1rem 2rem;
+      background: var(--nav-bg);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
     }
     nav a {
       font-family: 'Jost', sans-serif;
-      font-size: 0.7rem;
+      font-size: 0.82rem;
       font-weight: 400;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -51,6 +63,65 @@
       transition: color 0.3s;
     }
     nav a:hover { color: var(--gold); }
+
+    /* ── Top-right Controls ── */
+    .controls {
+      position: fixed;
+      top: 0.65rem;
+      right: 1.5rem;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .darkmode-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--ivory);
+      color: var(--stone);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
+      box-shadow: 0 2px 12px rgba(112,144,168,0.18);
+      line-height: 1;
+    }
+    .darkmode-btn:hover { background: var(--cream); }
+
+    /* ── Language Toggle ── */
+    .lang-toggle {
+      display: flex;
+      align-items: stretch;
+      background: var(--ivory);
+      border-radius: 3rem;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(112,144,168,0.18);
+    }
+    .lang-btn {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.55rem 1.2rem;
+      border: none;
+      background: transparent;
+      color: var(--stone);
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s;
+      line-height: 1;
+    }
+    .lang-btn.active {
+      background: var(--gold);
+      color: var(--ivory);
+    }
+    .lang-btn:hover:not(.active) { background: var(--cream); }
 
     /* ── Sections common ── */
     section {
@@ -69,7 +140,6 @@
       position: relative;
     }
 
-    /* corner ornaments */
     #info::before, #info::after {
       content: '';
       position: absolute;
@@ -77,10 +147,8 @@
       border: 1px solid var(--border);
       pointer-events: none;
     }
-    #info::before { top: 90px; left: 40px;
-      border-right: none; border-bottom: none; }
-    #info::after  { bottom: 40px; right: 40px;
-      border-left: none; border-top: none; }
+    #info::before { top: 90px; left: 40px; border-right: none; border-bottom: none; }
+    #info::after  { bottom: 40px; right: 40px; border-left: none; border-top: none; }
 
     .info-card {
       max-width: 580px;
@@ -91,9 +159,8 @@
       animation: fadeUp 1.2s ease both;
     }
 
-    /* card inner corner marks */
     .info-card::before, .info-card::after {
-      content: '✦';
+      content: '✝';
       position: absolute;
       color: var(--gold);
       font-size: 0.7rem;
@@ -104,16 +171,16 @@
     .dear {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      font-size: clamp(1.15rem, 2.8vw, 1.35rem);
       color: var(--stone);
       margin-bottom: 0.6rem;
-      min-height: 1.5em; /* reserve space even when empty */
+      min-height: 1.5em;
       animation: fadeUp 1.2s ease both;
     }
 
     .eyebrow {
       font-family: 'Jost', sans-serif;
-      font-size: 0.68rem;
+      font-size: 0.82rem;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--stone);
@@ -123,7 +190,7 @@
 
     h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.8rem, 8vw, 4.8rem);
+      font-size: clamp(3.2rem, 9vw, 5.6rem);
       font-weight: 300;
       line-height: 1.05;
       letter-spacing: -0.01em;
@@ -133,7 +200,7 @@
 
     .subtitle {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(0.85rem, 2.2vw, 1.05rem);
+      font-size: clamp(1rem, 2.6vw, 1.25rem);
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--stone);
@@ -150,7 +217,7 @@
 
     .date-block {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.1rem, 3vw, 1.35rem);
+      font-size: clamp(1.3rem, 3.5vw, 1.6rem);
       font-weight: 400;
       line-height: 1.7;
       margin-bottom: 0.4rem;
@@ -159,7 +226,7 @@
 
     .time-block {
       font-family: 'Jost', sans-serif;
-      font-size: 0.78rem;
+      font-size: 0.92rem;
       letter-spacing: 0.18em;
       color: var(--stone);
       margin-bottom: 2rem;
@@ -169,7 +236,7 @@
     .venue {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+      font-size: clamp(1.1rem, 2.8vw, 1.3rem);
       line-height: 1.8;
       color: var(--stone);
       animation: fadeUp 1.2s 0.5s ease both;
@@ -187,11 +254,10 @@
       margin-top: 1.2rem;
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 0.95rem;
+      font-size: 1.1rem;
       color: var(--gold);
     }
 
-    /* countdown */
     .countdown {
       display: flex; gap: 1.5rem; justify-content: center;
       margin-top: 2.4rem;
@@ -200,14 +266,14 @@
     .cd-unit { text-align: center; }
     .cd-num {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
+      font-size: 2.4rem;
       font-weight: 300;
       line-height: 1;
       display: block;
     }
     .cd-label {
       font-family: 'Jost', sans-serif;
-      font-size: 0.58rem;
+      font-size: 0.72rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--stone);
@@ -222,7 +288,7 @@
 
     .section-label {
       font-family: 'Jost', sans-serif;
-      font-size: 0.68rem;
+      font-size: 0.82rem;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--gold);
@@ -231,7 +297,7 @@
 
     h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-size: clamp(2.4rem, 7vw, 3.8rem);
       font-weight: 300;
       margin-bottom: 0.6rem;
     }
@@ -240,7 +306,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       color: var(--stone);
-      font-size: 1.05rem;
+      font-size: 1.25rem;
       margin-bottom: 2.4rem;
     }
 
@@ -257,7 +323,7 @@
 
     label {
       font-family: 'Jost', sans-serif;
-      font-size: 0.65rem;
+      font-size: 0.78rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--stone);
@@ -268,7 +334,7 @@
       border: 1px solid var(--border);
       padding: 0.75rem 1rem;
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
+      font-size: 1.15rem;
       color: var(--ink);
       outline: none;
       transition: border-color 0.25s;
@@ -279,7 +345,7 @@
     input::placeholder, textarea::placeholder { color: #bbb; }
     input:focus, select:focus, textarea:focus { border-color: var(--gold); }
 
-    select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237a7468'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+    select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236a6a6a'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
 
     textarea { resize: vertical; min-height: 90px; }
 
@@ -289,7 +355,7 @@
       background: var(--ink);
       color: var(--ivory);
       font-family: 'Jost', sans-serif;
-      font-size: 0.7rem;
+      font-size: 0.82rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       border: 1px solid var(--ink);
@@ -305,10 +371,10 @@
       padding: 2rem;
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       color: var(--stone);
     }
-    #form-success span { color: var(--gold); font-size: 1.6rem; display: block; margin-bottom: 0.5rem; }
+    #form-success .success-icon { color: var(--gold); font-size: 1.9rem; display: block; margin-bottom: 0.5rem; }
 
     /* ── FAQ ── */
     #faq {
@@ -327,9 +393,7 @@
       gap: 0;
     }
 
-    .faq-item {
-      border-top: 1px solid var(--border);
-    }
+    .faq-item { border-top: 1px solid var(--border); }
     .faq-item:last-child { border-bottom: 1px solid var(--border); }
 
     .faq-q {
@@ -342,7 +406,7 @@
       align-items: center;
       cursor: pointer;
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem;
+      font-size: 1.45rem;
       font-weight: 400;
       color: var(--ink);
       text-align: left;
@@ -365,15 +429,15 @@
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.4s ease, padding 0.3s;
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 0.98rem;
-      line-height: 1.75;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 1.05rem;
+      line-height: 1.85;
       color: var(--stone);
       padding: 0;
     }
     .faq-item.open .faq-a {
-      max-height: 400px;
+      max-height: 500px;
       padding-bottom: 1.2rem;
     }
 
@@ -384,7 +448,7 @@
       border-top: 1px solid var(--border);
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 0.88rem;
+      font-size: 1.05rem;
       color: var(--stone);
     }
 
@@ -399,13 +463,23 @@
       .info-card { padding: 2.5rem 1.5rem; }
       #info::before, #info::after { width: 60px; height: 60px; }
       nav { gap: 1.5rem; }
+      .controls { right: 1rem; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ── Top-right Controls ── -->
+  <div class="controls">
+    <button class="darkmode-btn" id="darkmode-btn" onclick="toggleDark()" aria-label="Toggle dark mode">☾</button>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('id')">ID</button>
+    </div>
+  </div>
+
   <nav>
-    <a href="#info">Ceremony</a>
+    <a href="#info" data-i18n="nav_ceremony">Ceremony</a>
     <a href="#rsvp">RSVP</a>
     <a href="#faq">FAQ</a>
   </nav>
@@ -414,11 +488,11 @@
   <section id="info">
     <div class="info-card">
       <p class="dear" id="dear-line"></p>
-      <p class="eyebrow">You are invited to</p>
+      <p class="eyebrow" data-i18n="eyebrow">You are invited to</p>
       <h1>Antonius<br>&amp; Adhella's</h1>
-      <p class="subtitle">Sacrament of Holy Matrimony</p>
+      <p class="subtitle" data-i18n="subtitle">Sacrament of Holy Matrimony</p>
       <div class="divider"></div>
-      <p class="date-block">Saturday, 06 September 2026</p>
+      <p class="date-block" data-i18n="date">Saturday, 06 September 2026</p>
       <p class="time-block">11.00 – 13.00 WIB</p>
       <div class="venue">
         <strong>Gereja Katolik Santo Laurensius</strong>
@@ -426,141 +500,172 @@
         Kec. Serpong Utara, Kota Tangerang Selatan,<br>
         Banten 15326
       </div>
-      <p class="broadcast">✦ &nbsp;Will also be broadcasted online&nbsp; ✦</p>
+      <p class="broadcast" data-i18n="broadcast">✝ &nbsp;Will also be broadcasted online&nbsp; ✝</p>
 
-      <!-- Live countdown -->
       <div class="countdown" id="countdown">
-        <div class="cd-unit"><span class="cd-num" id="cd-d">—</span><span class="cd-label">Days</span></div>
-        <div class="cd-unit"><span class="cd-num" id="cd-h">—</span><span class="cd-label">Hours</span></div>
-        <div class="cd-unit"><span class="cd-num" id="cd-m">—</span><span class="cd-label">Minutes</span></div>
-        <div class="cd-unit"><span class="cd-num" id="cd-s">—</span><span class="cd-label">Seconds</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-d">—</span><span class="cd-label" data-i18n="cd_days">Days</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-h">—</span><span class="cd-label" data-i18n="cd_hours">Hours</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-m">—</span><span class="cd-label" data-i18n="cd_minutes">Minutes</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-s">—</span><span class="cd-label" data-i18n="cd_seconds">Seconds</span></div>
       </div>
     </div>
   </section>
 
   <!-- ───────────────────────────── SECTION 2: RSVP ── -->
   <section id="rsvp">
-    <p class="section-label">Kindly reply by 15 August 2026</p>
+    <p class="section-label" data-i18n="rsvp_deadline">Kindly reply by 15 August 2026</p>
     <h2>RSVP</h2>
-    <p class="section-sub">Let us know you're coming</p>
+    <p class="section-sub" data-i18n="rsvp_sub">Let us know you're coming</p>
 
     <form class="rsvp-form" id="rsvp-form" novalidate>
       <div class="field-group">
-        <label for="name">Full Name *</label>
-        <input type="text" id="name" placeholder="Your name" required />
+        <label for="name" data-i18n="label_name">Full Name *</label>
+        <input type="text" id="name" placeholder="Your name" data-i18n-placeholder="placeholder_name" required />
       </div>
       <div class="field-group">
-        <label for="attendance">Will you attend our wedding? *</label>
+        <label for="attendance" data-i18n="label_attendance">Will you attend our wedding? *</label>
         <select id="attendance" required>
-          <option value="" disabled selected>Please select…</option>
-          <option value="Yes">Attending in person</option>
-          <option value="Online">Can only attend online</option>
-          <option value="No">Unable to attend</option>
+          <option value="" disabled selected data-i18n="opt_select">Please select…</option>
+          <option value="Yes" data-i18n="opt_yes">Attending in person</option>
+          <option value="Online" data-i18n="opt_online">Can only attend online</option>
+          <option value="No" data-i18n="opt_no">Unable to attend</option>
         </select>
       </div>
       <div class="field-group">
-        <label for="guests">Number of Guests (including yourself)</label>
+        <label for="guests" data-i18n="label_guests">Number of Guests (including yourself)</label>
         <select id="guests">
           <option value="1">1</option>
           <option value="2">2</option>
         </select>
       </div>
       <div class="field-group">
-        <label for="email">Your email for updates:</label>
+        <label for="email" data-i18n="label_email">Your email for updates:</label>
         <input type="email" id="email" name="email">
       </div>
-      <!-- <div class="field-group">
-        <label for="message">Message for the couple (optional)</label>
-        <textarea id="message" placeholder="Wishes, prayers, love…"></textarea>
-      </div> -->
-      <button type="submit" class="btn">Send RSVP</button>
+      <button type="submit" class="btn" data-i18n="btn_rsvp">Send RSVP</button>
     </form>
 
     <div id="form-success">
-      <span>✦</span>
-      Thank you! We look forward to celebrating with you.
+      <span class="success-icon">✝</span>
+      <span data-i18n="success_msg">Thank you! We look forward to celebrating with you.</span>
     </div>
   </section>
 
   <!-- ───────────────────────────── SECTION 3: FAQ ── -->
   <section id="faq">
-    <p class="section-label">Have questions?</p>
+    <p class="section-label" data-i18n="faq_label">Have questions?</p>
     <h2>FAQ</h2>
-    <p class="section-sub">Everything you need to know</p>
+    <p class="section-sub" data-i18n="faq_sub">Everything you need to know</p>
 
     <div class="faq-list" id="faq-list">
 
       <div class="faq-item">
         <button class="faq-q">
-          Where is the ceremony held?
+          <span data-i18n="faq_q_1">Where is the ceremony held?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">
-          The ceremony will be held at Gereja Katolik Santo Laurensius, Jl. Sutera Utama No.2, Pakulonan, Kec. Serpong Utara, Kota Tangerang Selatan, Banten 15326.
-        </div>
+        <div class="faq-a" data-i18n="faq_a_1">The ceremony will be held at Gereja Katolik Santo Laurensius, Jl. Sutera Utama No.2, Pakulonan, Kec. Serpong Utara, Kota Tangerang Selatan, Banten 15326.</div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">
-          Will there be an online livestream?
+          <span data-i18n="faq_q_2">Will there be a reception?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">
-          Yes! The ceremony will be broadcasted live online. The livestream link will be shared closer to the date — make sure you've filled in your RSVP so we know to send it to you.
-        </div>
+        <div class="faq-a" data-i18n="faq_a_2">We will only celebrate our wedding by conducting the Holy Matrimony.</div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">
-          What is the dress code?
+          <span data-i18n="faq_q_3">What is the dress code?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">
-          We encourage guests to dress in formal or semi-formal attire. The ceremony is in a church, so please dress modestly and respectfully. 
-        </div>
+        <div class="faq-a" data-i18n="faq_a_3">We encourage guests to dress in formal or semi-formal attire. The ceremony is in a church, so please dress modestly and respectfully.</div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">
-          Is there parking available?
+          <span data-i18n="faq_q_4">Is there parking available?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">
-          Yes, parking is available at the church venue. We recommend arriving a little early as seating will be on a first-come, first-served basis.
-        </div>
+        <div class="faq-a" data-i18n="faq_a_4">Yes, parking is available at the church venue. We recommend arriving a little early as seating will be on a first-come, first-served basis.</div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">
-          By when should I RSVP?
+          <span data-i18n="faq_q_5">Will there be any refreshments provided?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">
-          Please RSVP by 15 August 2026 so we can plan accordingly. We truly appreciate your timely response!
-        </div>
+        <div class="faq-a" data-i18n="faq_a_5">Before the event concludes and you are free to leave the church, you will be given a lunch box for you to enjoy at home.</div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">
-          I have more questions — who can I contact?
+          <span data-i18n="faq_q_6">I am not a Catholic nor Christian — can I still come to the Holy Matrimony at the church?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">
-          Feel free to reach out to us directly! You can contact Adhella at [your WhatsApp/email here] or Antonius at [his contact here].
-        </div>
+        <div class="faq-a" data-i18n="faq_a_6">Yes! It is open and inclusive to all demographics. Please come and celebrate our wedding with us!</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span data-i18n="faq_q_7">If I am not a Catholic nor Christian, is there anything I should watch out for?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a" data-i18n-html="faq_a_7">There are a few things to keep in mind during the mass:<br><br><strong>Most important:</strong> Only baptised Catholics can receive communion. If you see people getting up and lining up to receive a small white circular bread, you can simply remain seated — that's perfectly fine.<br><br>For the rest of the ceremony, you don't have to do anything special. If you'd like to follow along, you're welcome to stand when everyone stands and sit when everyone sits. If you have a medical condition that makes it difficult to stand and sit repeatedly, it is completely fine to remain seated throughout.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span data-i18n="faq_q_8">If I want to attend online, where is the live broadcast link?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a" data-i18n="faq_a_8">We will send the broadcast link to your email the day before the wedding.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span data-i18n="faq_q_9">By when should I RSVP?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a" data-i18n="faq_a_9">Please RSVP by 15 August 2026 so we can plan accordingly. We truly appreciate your timely response!</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span data-i18n="faq_q_10">I need to update my RSVP — what should I do?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a" data-i18n="faq_a_10">No worries! Simply refill the form using the same email address you used before, and your record will be updated.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span data-i18n="faq_q_11">Can I give a gift for your wedding?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a" data-i18n-html="faq_a_11">Thanks for asking! You are welcome to transfer to <strong>Mandiri 1640004263291 a/n Adhella Subalie</strong>. If you'd like to give something else, feel free to contact us privately. On the day itself, we will also have an envelope box available at the venue.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span data-i18n="faq_q_12">I have more questions — who can I contact?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a" data-i18n="faq_a_12">Feel free to reach out to us directly! You can contact Adhella at [your WhatsApp/email here] or Antonius at [his contact here].</div>
       </div>
 
     </div>
   </section>
 
   <footer>
-    With love, Antonius &amp; Adhella &nbsp;✦&nbsp; 06 · 09 · 2026
+    <span data-i18n-html="footer">With love, Antonius &amp; Adhella &nbsp;✝&nbsp; 06 · 09 · 2026</span>
   </footer>
 
   <script>
     /* ──────────────── PERSONALISED GREETING ──────────────── */
-    const params = new URLSearchParams(window.location.search);
-    const guestName = params.get('to');
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestName = urlParams.get('to');
     if (guestName) {
       document.getElementById('dear-line').textContent = 'Dear ' + guestName + ',';
     }
@@ -573,7 +678,7 @@
       const diff = weddingDate - now;
       if (diff <= 0) {
         document.getElementById('countdown').innerHTML =
-          '<p style="font-family:\'Cormorant Garamond\',serif;font-style:italic;color:var(--gold)">Today is the day! ✦</p>';
+          '<p style="font-family:\'Cormorant Garamond\',serif;font-style:italic;color:var(--gold)">Today is the day! ✝</p>';
         return;
       }
       const d = Math.floor(diff / 86400000);
@@ -589,24 +694,11 @@
     setInterval(updateCountdown, 1000);
 
     /* ──────────────── GOOGLE FORM RSVP ──────────────── */
-    /*
-      HOW TO CONNECT YOUR GOOGLE FORM:
-      1. Open your Google Form → click the ⋮ menu → "Get pre-filled link"
-      2. Fill in dummy values for each field, click "Get link", copy it.
-      3. From that URL, note each "entry.XXXXXXXXX" ID for each field.
-      4. Replace the GOOGLE_FORM_ACTION_URL and entry IDs below.
-
-      Example pre-filled URL looks like:
-      https://docs.google.com/forms/d/e/XXXX/formResponse?entry.123456789=Name&entry.987654321=yes_in_person&...
-
-      Real link:
-      https://docs.google.com/forms/d/e/1FAIpQLSd4mlJjoPUvbYz6XhqwFdLPrzMKhfHonkbz6r8Oyety-np4mQ/viewform?usp=pp_url&entry.2606285=aaa&entry.877086558=Yes&entry.1127349455=1&entry.1498135098=asdadasd@asd.com
-    */
     const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSc-MBiKos2Xkdqqa3qOXzQUJyArXwProxg0Ko-9kka9NHxAAw/formResponse';
-    const ENTRY_NAME       = 'entry.983902568'; // ← name
-    const ENTRY_ATTENDANCE = 'entry.280766996'; // ← attendance
-    const ENTRY_GUESTSNUM     = 'entry.1889326488'; // ← number of guest(s)
-    const ENTRY_EMAIL    = 'entry.205926387'; // ← email
+    const ENTRY_NAME       = 'entry.983902568';
+    const ENTRY_ATTENDANCE = 'entry.280766996';
+    const ENTRY_GUESTSNUM  = 'entry.1889326488';
+    const ENTRY_EMAIL      = 'entry.205926387';
 
     document.getElementById('rsvp-form').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -614,19 +706,20 @@
       const name       = document.getElementById('name').value.trim();
       const attendance = document.getElementById('attendance').value;
       const guests     = document.getElementById('guests').value;
-      const email    = document.getElementById('email').value.trim();
+      const email      = document.getElementById('email').value.trim();
 
       if (!name || !attendance) {
-        alert('Please fill in your name and attendance.');
+        alert(currentLang === 'id'
+          ? 'Mohon isi nama dan konfirmasi kehadiran Anda.'
+          : 'Please fill in your name and attendance.');
         return;
       }
 
-      // Submit silently to Google Form via hidden iframe
-      const params = new URLSearchParams({
+      const formParams = new URLSearchParams({
         [ENTRY_NAME]:       name,
         [ENTRY_ATTENDANCE]: attendance,
-        [ENTRY_GUESTSNUM]:     guests,
-        [ENTRY_EMAIL]:    email,
+        [ENTRY_GUESTSNUM]:  guests,
+        [ENTRY_EMAIL]:      email,
       });
 
       const iframe = document.createElement('iframe');
@@ -639,7 +732,7 @@
       tempForm.action = GOOGLE_FORM_ACTION_URL;
       tempForm.target = 'hidden_iframe';
 
-      for (const [key, val] of params.entries()) {
+      for (const [key, val] of formParams.entries()) {
         const input = document.createElement('input');
         input.type  = 'hidden';
         input.name  = key;
@@ -651,7 +744,6 @@
       tempForm.submit();
       document.body.removeChild(tempForm);
 
-      // Show success message
       document.getElementById('rsvp-form').style.display = 'none';
       document.getElementById('form-success').style.display = 'block';
     });
@@ -662,12 +754,167 @@
       if (!btn) return;
       const item = btn.closest('.faq-item');
       const isOpen = item.classList.contains('open');
-
-      // Close all
       document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
-      // Toggle clicked
       if (!isOpen) item.classList.add('open');
     });
+
+    /* ──────────────── DARK MODE ──────────────── */
+    function applyTheme(dark) {
+      document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      document.getElementById('darkmode-btn').textContent = dark ? '☀' : '☾';
+    }
+
+    function toggleDark() {
+      const isDark = document.documentElement.dataset.theme === 'dark';
+      applyTheme(!isDark);
+      localStorage.setItem('theme', !isDark ? 'dark' : 'light');
+    }
+
+    (function initTheme() {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(saved ? saved === 'dark' : prefersDark);
+    })();
+
+    /* ──────────────── LOCALISATION ──────────────── */
+    let currentLang = 'en';
+
+    const strings = {
+      en: {
+        nav_ceremony:     'Ceremony',
+        eyebrow:          'You are invited to',
+        subtitle:         'Sacrament of Holy Matrimony',
+        date:             'Saturday, 06 September 2026',
+        broadcast:        '✝  Will also be broadcasted online  ✝',
+        cd_days:          'Days',
+        cd_hours:         'Hours',
+        cd_minutes:       'Minutes',
+        cd_seconds:       'Seconds',
+        rsvp_deadline:    'Kindly reply by 15 August 2026',
+        rsvp_sub:         "Let us know you're coming",
+        label_name:       'Full Name *',
+        placeholder_name: 'Your name',
+        label_attendance: 'Will you attend our wedding? *',
+        opt_select:       'Please select…',
+        opt_yes:          'Attending in person',
+        opt_online:       'Can only attend online',
+        opt_no:           'Unable to attend',
+        label_guests:     'Number of Guests (including yourself)',
+        label_email:      'Your email for updates:',
+        btn_rsvp:         'Send RSVP',
+        success_msg:      'Thank you! We look forward to celebrating with you.',
+        faq_label:        'Have questions?',
+        faq_sub:          'Everything you need to know',
+        faq_q_1:  'Where is the ceremony held?',
+        faq_a_1:  'The ceremony will be held at Gereja Katolik Santo Laurensius, Jl. Sutera Utama No.2, Pakulonan, Kec. Serpong Utara, Kota Tangerang Selatan, Banten 15326.',
+        faq_q_2:  'Will there be a reception?',
+        faq_a_2:  'We will only celebrate our wedding by conducting the Holy Matrimony.',
+        faq_q_3:  'What is the dress code?',
+        faq_a_3:  'We encourage guests to dress in formal or semi-formal attire. The ceremony is in a church, so please dress modestly and respectfully.',
+        faq_q_4:  'Is there parking available?',
+        faq_a_4:  'Yes, parking is available at the church venue. We recommend arriving a little early as seating will be on a first-come, first-served basis.',
+        faq_q_5:  'Will there be any refreshments provided?',
+        faq_a_5:  'Before the event concludes and you are free to leave the church, you will be given a lunch box for you to enjoy at home.',
+        faq_q_6:  'I am not a Catholic nor Christian — can I still come to the Holy Matrimony at the church?',
+        faq_a_6:  'Yes! It is open and inclusive to all demographics. Please come and celebrate our wedding with us!',
+        faq_q_7:  'If I am not a Catholic nor Christian, is there anything I should watch out for?',
+        faq_a_7:  'There are a few things to keep in mind during the mass:<br><br><strong>Most important:</strong> Only baptised Catholics can receive communion. If you see people getting up and lining up to receive a small white circular bread, you can simply remain seated — that\'s perfectly fine.<br><br>For the rest of the ceremony, you don\'t have to do anything special. If you\'d like to follow along, you\'re welcome to stand when everyone stands and sit when everyone sits. If you have a medical condition that makes it difficult to stand and sit repeatedly, it is completely fine to remain seated throughout.',
+        faq_q_8:  'If I want to attend online, where is the live broadcast link?',
+        faq_a_8:  'We will send the broadcast link to your email the day before the wedding.',
+        faq_q_9:  'By when should I RSVP?',
+        faq_a_9:  'Please RSVP by 15 August 2026 so we can plan accordingly. We truly appreciate your timely response!',
+        faq_q_10: 'I need to update my RSVP — what should I do?',
+        faq_a_10: 'No worries! Simply refill the form using the same email address you used before, and your record will be updated.',
+        faq_q_11: 'Can I give a gift for your wedding?',
+        faq_a_11: 'Thanks for asking! You are welcome to transfer to <strong>Mandiri 1640004263291 a/n Adhella Subalie</strong>. If you\'d like to give something else, feel free to contact us privately. On the day itself, we will also have an envelope box available at the venue.',
+        faq_q_12: 'I have more questions — who can I contact?',
+        faq_a_12: 'Feel free to reach out to us directly! You can contact Adhella at [your WhatsApp/email here] or Antonius at [his contact here].',
+        footer:       'With love, Antonius &amp; Adhella &nbsp;✝&nbsp; 06 · 09 · 2026',
+        dear_prefix:  'Dear',
+      },
+      id: {
+        nav_ceremony:     'Upacara',
+        eyebrow:          'Anda diundang ke',
+        subtitle:         'Sakramen Pernikahan Kudus',
+        date:             'Sabtu, 06 September 2026',
+        broadcast:        '✝  Juga akan disiarkan secara online  ✝',
+        cd_days:          'Hari',
+        cd_hours:         'Jam',
+        cd_minutes:       'Menit',
+        cd_seconds:       'Detik',
+        rsvp_deadline:    'Mohon konfirmasi sebelum 15 Agustus 2026',
+        rsvp_sub:         'Beritahu kami kehadiranmu',
+        label_name:       'Nama Lengkap *',
+        placeholder_name: 'Nama Anda',
+        label_attendance: 'Apakah Anda akan hadir di pernikahan kami? *',
+        opt_select:       'Pilih…',
+        opt_yes:          'Hadir langsung',
+        opt_online:       'Hanya bisa hadir secara online',
+        opt_no:           'Tidak dapat hadir',
+        label_guests:     'Jumlah Tamu (termasuk Anda)',
+        label_email:      'Email Anda untuk pemberitahuan:',
+        btn_rsvp:         'Kirim RSVP',
+        success_msg:      'Terima kasih! Kami tidak sabar merayakannya bersamamu.',
+        faq_label:        'Ada pertanyaan?',
+        faq_sub:          'Semua yang perlu kamu ketahui',
+        faq_q_1:  'Di mana upacara diselenggarakan?',
+        faq_a_1:  'Upacara akan diselenggarakan di Gereja Katolik Santo Laurensius, Jl. Sutera Utama No.2, Pakulonan, Kec. Serpong Utara, Kota Tangerang Selatan, Banten 15326.',
+        faq_q_2:  'Apakah ada resepsi?',
+        faq_a_2:  'Kami hanya merayakan pernikahan dengan mengadakan Sakramen Pernikahan Kudus.',
+        faq_q_3:  'Apa kode berpakaian yang disarankan?',
+        faq_a_3:  'Kami menganjurkan tamu untuk berpakaian formal atau semi-formal. Karena upacara berlangsung di gereja, mohon berpakaian dengan sopan dan rapi.',
+        faq_q_4:  'Apakah tersedia tempat parkir?',
+        faq_a_4:  'Ya, tersedia tempat parkir di lokasi gereja. Kami sarankan untuk datang lebih awal karena tempat duduk berdasarkan urutan kedatangan.',
+        faq_q_5:  'Apakah akan ada konsumsi yang disediakan?',
+        faq_a_5:  'Sebelum acara selesai dan Anda bebas meninggalkan gereja, Anda akan mendapatkan kotak makan siang untuk dinikmati di rumah.',
+        faq_q_6:  'Saya bukan Katolik maupun Kristen — apakah saya tetap bisa datang ke gereja?',
+        faq_a_6:  'Tentu! Acara ini terbuka dan inklusif untuk semua kalangan. Datanglah dan rayakan pernikahan kami bersama kami!',
+        faq_q_7:  'Jika saya bukan Katolik maupun Kristen, apakah ada hal yang perlu saya perhatikan?',
+        faq_a_7:  'Ada beberapa hal yang perlu diperhatikan selama misa:<br><br><strong>Yang paling penting:</strong> Hanya umat Katolik yang telah dibaptis yang dapat menerima komuni. Jika Anda melihat orang-orang berdiri dan berbaris untuk menerima roti putih kecil berbentuk bulat, Anda cukup tetap duduk di tempat — itu tidak masalah sama sekali.<br><br>Untuk sisa upacara, Anda tidak perlu melakukan apa pun secara khusus. Jika Anda ingin mengikuti alur, Anda dipersilakan berdiri saat semua orang berdiri dan duduk saat semua orang duduk. Jika Anda memiliki kondisi medis yang membuat sulit untuk berdiri dan duduk berulang kali, tidak masalah jika Anda ingin duduk sepanjang upacara.',
+        faq_q_8:  'Jika saya ingin hadir secara online, di mana link siaran langsung-nya?',
+        faq_a_8:  'Kami akan mengirimkan link siaran ke email Anda sehari sebelum pernikahan.',
+        faq_q_9:  'Kapan batas waktu konfirmasi kehadiran?',
+        faq_a_9:  'Mohon konfirmasi kehadiran sebelum 15 Agustus 2026 agar kami dapat mempersiapkan segalanya. Kami sangat mengapresiasi respons Anda tepat waktu!',
+        faq_q_10: 'Saya perlu mengubah konfirmasi kehadiran saya — apa yang harus saya lakukan?',
+        faq_a_10: 'Tidak perlu khawatir! Cukup isi ulang formulir dengan alamat email yang sama yang Anda gunakan sebelumnya, dan data Anda akan diperbarui.',
+        faq_q_11: 'Bolehkah saya memberikan hadiah untuk pernikahan kalian?',
+        faq_a_11: 'Terima kasih sudah bertanya! Anda bisa melakukan transfer ke <strong>Mandiri 1640004263291 a/n Adhella Subalie</strong>. Jika Anda ingin memberikan sesuatu yang lain, jangan ragu untuk menghubungi kami secara pribadi. Pada hari H, kami juga akan menyediakan kotak amplop di venue.',
+        faq_q_12: 'Saya masih punya pertanyaan lain — siapa yang bisa saya hubungi?',
+        faq_a_12: 'Jangan ragu untuk menghubungi kami langsung! Anda bisa menghubungi Adhella di [your WhatsApp/email here] atau Antonius di [his contact here].',
+        footer:       'Dengan cinta, Antonius &amp; Adhella &nbsp;✝&nbsp; 06 · 09 · 2026',
+        dear_prefix:  'Kepada',
+      }
+    };
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
+      });
+
+      const t = strings[lang];
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.dataset.i18nHtml;
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.dataset.i18nPlaceholder;
+        if (t[key] !== undefined) el.placeholder = t[key];
+      });
+
+      if (guestName) {
+        document.getElementById('dear-line').textContent = t.dear_prefix + ' ' + guestName + ',';
+      }
+    }
   </script>
 
 </body>

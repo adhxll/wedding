@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Antonius & Adhella — Holy Matrimony</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='12' y='1' width='8' height='30' fill='white'/><rect x='4' y='8' width='24' height='8' fill='white'/><rect x='13' y='2' width='6' height='28' fill='%23767676'/><rect x='5' y='9' width='22' height='6' fill='%23767676'/></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet" />
@@ -190,12 +191,23 @@
 
     h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3.2rem, 9vw, 5.6rem);
       font-weight: 300;
-      line-height: 1.05;
-      letter-spacing: -0.01em;
+      line-height: 1.3;
+      letter-spacing: 0.02em;
       margin-bottom: 0.3rem;
       animation: fadeUp 1.2s 0.2s ease both;
+    }
+    .name-full {
+      display: block;
+      font-size: clamp(2rem, 5.5vw, 3rem);
+    }
+    .name-amp {
+      display: block;
+      font-size: clamp(2.6rem, 7vw, 3.8rem);
+      font-style: italic;
+      color: var(--gold);
+      line-height: 1.0;
+      margin: 0.08em 0;
     }
 
     .subtitle {
@@ -241,6 +253,14 @@
       color: var(--stone);
       animation: fadeUp 1.2s 0.5s ease both;
     }
+
+    .venue-link {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.25s;
+    }
+    .venue-link:hover { border-bottom-color: var(--gold); }
 
     .venue strong {
       font-style: normal;
@@ -437,7 +457,7 @@
       padding: 0;
     }
     .faq-item.open .faq-a {
-      max-height: 500px;
+      max-height: 700px;
       padding-bottom: 1.2rem;
     }
 
@@ -479,7 +499,7 @@
   </div>
 
   <nav>
-    <a href="#info" data-i18n="nav_ceremony">Ceremony</a>
+    <a href="#info" data-i18n="nav_ceremony"></a>
     <a href="#rsvp">RSVP</a>
     <a href="#faq">FAQ</a>
   </nav>
@@ -488,178 +508,160 @@
   <section id="info">
     <div class="info-card">
       <p class="dear" id="dear-line"></p>
-      <p class="eyebrow" data-i18n="eyebrow">You are invited to</p>
-      <h1>Antonius<br>&amp; Adhella's</h1>
-      <p class="subtitle" data-i18n="subtitle">Sacrament of Holy Matrimony</p>
+      <p class="eyebrow" data-i18n="eyebrow"></p>
+      <h1>
+        <span class="name-full">Antonius Ivan Dharmala</span>
+        <span class="name-amp">&amp;</span>
+        <span class="name-full">Adhella Subalie</span>
+      </h1>
+      <p class="subtitle" data-i18n="subtitle"></p>
       <div class="divider"></div>
-      <p class="date-block" data-i18n="date">Saturday, 06 September 2026</p>
+      <p class="date-block" data-i18n="date"></p>
       <p class="time-block">11.00 – 13.00 WIB</p>
       <div class="venue">
-        <strong>Gereja Katolik Santo Laurensius</strong>
-        Jl. Sutera Utama No.2, Pakulonan,<br>
-        Kec. Serpong Utara, Kota Tangerang Selatan,<br>
-        Banten 15326
+        <a href="https://maps.app.goo.gl/p1sVvm6umihrhPWn6" target="_blank" rel="noopener" class="venue-link">
+          <strong>Gereja Katolik Santo Laurensius</strong>
+          Jl. Sutera Utama No.2, Pakulonan,<br>
+          Kec. Serpong Utara, Kota Tangerang Selatan,<br>
+          Banten 15326
+        </a>
       </div>
-      <p class="broadcast" data-i18n="broadcast">✝ &nbsp;Will also be broadcasted online&nbsp; ✝</p>
+      <p class="broadcast" data-i18n="broadcast"></p>
 
       <div class="countdown" id="countdown">
-        <div class="cd-unit"><span class="cd-num" id="cd-d">—</span><span class="cd-label" data-i18n="cd_days">Days</span></div>
-        <div class="cd-unit"><span class="cd-num" id="cd-h">—</span><span class="cd-label" data-i18n="cd_hours">Hours</span></div>
-        <div class="cd-unit"><span class="cd-num" id="cd-m">—</span><span class="cd-label" data-i18n="cd_minutes">Minutes</span></div>
-        <div class="cd-unit"><span class="cd-num" id="cd-s">—</span><span class="cd-label" data-i18n="cd_seconds">Seconds</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-d">—</span><span class="cd-label" data-i18n="cd_days"></span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-h">—</span><span class="cd-label" data-i18n="cd_hours"></span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-m">—</span><span class="cd-label" data-i18n="cd_minutes"></span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-s">—</span><span class="cd-label" data-i18n="cd_seconds"></span></div>
       </div>
     </div>
   </section>
 
   <!-- ───────────────────────────── SECTION 2: RSVP ── -->
   <section id="rsvp">
-    <p class="section-label" data-i18n="rsvp_deadline">Kindly reply by 15 August 2026</p>
+    <p class="section-label" data-i18n="rsvp_deadline"></p>
     <h2>RSVP</h2>
-    <p class="section-sub" data-i18n="rsvp_sub">Let us know you're coming</p>
+    <p class="section-sub" data-i18n="rsvp_sub"></p>
 
     <form class="rsvp-form" id="rsvp-form" novalidate>
       <div class="field-group">
-        <label for="name" data-i18n="label_name">Full Name *</label>
+        <label for="name" data-i18n="label_name"></label>
         <input type="text" id="name" placeholder="Your name" data-i18n-placeholder="placeholder_name" required />
       </div>
       <div class="field-group">
-        <label for="attendance" data-i18n="label_attendance">Will you attend our wedding? *</label>
+        <label for="attendance" data-i18n="label_attendance"></label>
         <select id="attendance" required>
-          <option value="" disabled selected data-i18n="opt_select">Please select…</option>
-          <option value="Yes" data-i18n="opt_yes">Attending in person</option>
-          <option value="Online" data-i18n="opt_online">Can only attend online</option>
-          <option value="No" data-i18n="opt_no">Unable to attend</option>
+          <option value="" disabled selected data-i18n="opt_select"></option>
+          <option value="Yes" data-i18n="opt_yes"></option>
+          <option value="Online" data-i18n="opt_online"></option>
+          <option value="No" data-i18n="opt_no"></option>
         </select>
       </div>
       <div class="field-group">
-        <label for="guests" data-i18n="label_guests">Number of Guests (including yourself)</label>
+        <label for="guests" data-i18n="label_guests"></label>
         <select id="guests">
           <option value="1">1</option>
           <option value="2">2</option>
         </select>
       </div>
       <div class="field-group">
-        <label for="email" data-i18n="label_email">Your email for updates:</label>
+        <label for="email" data-i18n="label_email"></label>
         <input type="email" id="email" name="email">
       </div>
-      <button type="submit" class="btn" data-i18n="btn_rsvp">Send RSVP</button>
+      <button type="submit" class="btn" data-i18n="btn_rsvp"></button>
     </form>
 
     <div id="form-success">
       <span class="success-icon">✝</span>
-      <span data-i18n="success_msg">Thank you! We look forward to celebrating with you.</span>
+      <span data-i18n="success_msg"></span>
     </div>
   </section>
 
   <!-- ───────────────────────────── SECTION 3: FAQ ── -->
   <section id="faq">
-    <p class="section-label" data-i18n="faq_label">Have questions?</p>
+    <p class="section-label" data-i18n="faq_label"></p>
     <h2>FAQ</h2>
-    <p class="section-sub" data-i18n="faq_sub">Everything you need to know</p>
+    <p class="section-sub" data-i18n="faq_sub"></p>
 
     <div class="faq-list" id="faq-list">
 
       <div class="faq-item">
         <button class="faq-q">
-          <span data-i18n="faq_q_1">Where is the ceremony held?</span>
+          <span data-i18n="faq_q_2"></span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a" data-i18n="faq_a_1">The ceremony will be held at Gereja Katolik Santo Laurensius, Jl. Sutera Utama No.2, Pakulonan, Kec. Serpong Utara, Kota Tangerang Selatan, Banten 15326.</div>
+        <div class="faq-a" data-i18n="faq_a_2"></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">
-          <span data-i18n="faq_q_2">Will there be a reception?</span>
+          <span data-i18n="faq_q_3"></span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a" data-i18n="faq_a_2">We will only celebrate our wedding by conducting the Holy Matrimony.</div>
+        <div class="faq-a" data-i18n-html="faq_a_3"></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">
-          <span data-i18n="faq_q_3">What is the dress code?</span>
+          <span data-i18n="faq_q_4"></span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a" data-i18n="faq_a_3">We encourage guests to dress in formal or semi-formal attire. The ceremony is in a church, so please dress modestly and respectfully.</div>
+        <div class="faq-a" data-i18n="faq_a_4"></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">
-          <span data-i18n="faq_q_4">Is there parking available?</span>
+          <span data-i18n="faq_q_5"></span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a" data-i18n="faq_a_4">Yes, parking is available at the church venue. We recommend arriving a little early as seating will be on a first-come, first-served basis.</div>
+        <div class="faq-a" data-i18n="faq_a_5"></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">
-          <span data-i18n="faq_q_5">Will there be any refreshments provided?</span>
+          <span data-i18n="faq_q_6"></span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a" data-i18n="faq_a_5">Before the event concludes and you are free to leave the church, you will be given a lunch box for you to enjoy at home.</div>
+        <div class="faq-a" data-i18n="faq_a_6"></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">
-          <span data-i18n="faq_q_6">I am not a Catholic nor Christian — can I still come to the Holy Matrimony at the church?</span>
+          <span data-i18n="faq_q_7"></span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a" data-i18n="faq_a_6">Yes! It is open and inclusive to all demographics. Please come and celebrate our wedding with us!</div>
+        <div class="faq-a" data-i18n-html="faq_a_7"></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">
-          <span data-i18n="faq_q_7">If I am not a Catholic nor Christian, is there anything I should watch out for?</span>
+          <span data-i18n="faq_q_8"></span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a" data-i18n-html="faq_a_7">There are a few things to keep in mind during the mass:<br><br><strong>Most important:</strong> Only baptised Catholics can receive communion. If you see people getting up and lining up to receive a small white circular bread, you can simply remain seated — that's perfectly fine.<br><br>For the rest of the ceremony, you don't have to do anything special. If you'd like to follow along, you're welcome to stand when everyone stands and sit when everyone sits. If you have a medical condition that makes it difficult to stand and sit repeatedly, it is completely fine to remain seated throughout.</div>
+        <div class="faq-a" data-i18n="faq_a_8"></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">
-          <span data-i18n="faq_q_8">If I want to attend online, where is the live broadcast link?</span>
+          <span data-i18n="faq_q_10"></span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a" data-i18n="faq_a_8">We will send the broadcast link to your email the day before the wedding.</div>
+        <div class="faq-a" data-i18n="faq_a_10"></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">
-          <span data-i18n="faq_q_9">By when should I RSVP?</span>
+          <span data-i18n="faq_q_11"></span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a" data-i18n="faq_a_9">Please RSVP by 15 August 2026 so we can plan accordingly. We truly appreciate your timely response!</div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q">
-          <span data-i18n="faq_q_10">I need to update my RSVP — what should I do?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a" data-i18n="faq_a_10">No worries! Simply refill the form using the same email address you used before, and your record will be updated.</div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q">
-          <span data-i18n="faq_q_11">Can I give a gift for your wedding?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a" data-i18n-html="faq_a_11">Thanks for asking! You are welcome to transfer to <strong>Mandiri 1640004263291 a/n Adhella Subalie</strong>. If you'd like to give something else, feel free to contact us privately. On the day itself, we will also have an envelope box available at the venue.</div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q">
-          <span data-i18n="faq_q_12">I have more questions — who can I contact?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a" data-i18n="faq_a_12">Feel free to reach out to us directly! You can contact Adhella at [your WhatsApp/email here] or Antonius at [his contact here].</div>
+        <div class="faq-a" data-i18n-html="faq_a_11"></div>
       </div>
 
     </div>
   </section>
 
   <footer>
-    <span data-i18n-html="footer">With love, Antonius &amp; Adhella &nbsp;✝&nbsp; 06 · 09 · 2026</span>
+    <span data-i18n-html="footer"></span>
   </footer>
 
   <script>
@@ -772,8 +774,7 @@
 
     (function initTheme() {
       const saved = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      applyTheme(saved ? saved === 'dark' : prefersDark);
+      applyTheme(saved === 'dark');
     })();
 
     /* ──────────────── LOCALISATION ──────────────── */
@@ -781,16 +782,16 @@
 
     const strings = {
       en: {
-        nav_ceremony:     'Ceremony',
+        nav_ceremony:     'Holy Matrimony',
         eyebrow:          'You are invited to',
         subtitle:         'Sacrament of Holy Matrimony',
-        date:             'Saturday, 06 September 2026',
+        date:             'Sunday, 06 September 2026',
         broadcast:        '✝  Will also be broadcasted online  ✝',
         cd_days:          'Days',
         cd_hours:         'Hours',
         cd_minutes:       'Minutes',
         cd_seconds:       'Seconds',
-        rsvp_deadline:    'Kindly reply by 15 August 2026',
+        rsvp_deadline:    'Kindly reply by 28 August 2026',
         rsvp_sub:         "Let us know you're coming",
         label_name:       'Full Name *',
         placeholder_name: 'Your name',
@@ -810,9 +811,9 @@
         faq_q_2:  'Will there be a reception?',
         faq_a_2:  'We will only celebrate our wedding by conducting the Holy Matrimony.',
         faq_q_3:  'What is the dress code?',
-        faq_a_3:  'We encourage guests to dress in formal or semi-formal attire. The ceremony is in a church, so please dress modestly and respectfully.',
+        faq_a_3:  'Formal or semi-formal attire is required, with an emphasis on modesty suited to a church setting.<br><br><strong>Women:</strong> A cocktail dress, elegant midi or maxi dress, or a formal blouse paired with tailored trousers or a skirt. Hemlines should fall at or below the knee. Please keep necklines modest and avoid sheer, backless, or strapless styles — a blazer or cover-up works beautifully if needed.<br><br><strong>Men:</strong> A suit or a formal shirt with tailored trousers and dress shoes. A blazer or sports coat is strongly encouraged. Ties are optional but welcome.<br><br>Please avoid casual wear (jeans, shorts, sneakers) and anything too form-fitting or revealing.<br><br>That said, this is just a recommendation — as long as you\'re here to celebrate with us, we are absolutely thrilled!',
         faq_q_4:  'Is there parking available?',
-        faq_a_4:  'Yes, parking is available at the church venue. We recommend arriving a little early as seating will be on a first-come, first-served basis.',
+        faq_a_4:  'Yes, parking is available at the church. Aside from that, parking is also available at BINUS ASO, and Sports Center. We do recommend arriving a little early but not too early, since there will be a bit of a traffic right after the morning mass.',
         faq_q_5:  'Will there be any refreshments provided?',
         faq_a_5:  'Before the event concludes and you are free to leave the church, you will be given a lunch box for you to enjoy at home.',
         faq_q_6:  'I am not a Catholic nor Christian — can I still come to the Holy Matrimony at the church?',
@@ -822,27 +823,25 @@
         faq_q_8:  'If I want to attend online, where is the live broadcast link?',
         faq_a_8:  'We will send the broadcast link to your email the day before the wedding.',
         faq_q_9:  'By when should I RSVP?',
-        faq_a_9:  'Please RSVP by 15 August 2026 so we can plan accordingly. We truly appreciate your timely response!',
+        faq_a_9:  'Please RSVP by 28 August 2026 so we can plan accordingly. We truly appreciate your timely response!',
         faq_q_10: 'I need to update my RSVP — what should I do?',
         faq_a_10: 'No worries! Simply refill the form using the same email address you used before, and your record will be updated.',
         faq_q_11: 'Can I give a gift for your wedding?',
         faq_a_11: 'Thanks for asking! You are welcome to transfer to <strong>Mandiri 1640004263291 a/n Adhella Subalie</strong>. If you\'d like to give something else, feel free to contact us privately. On the day itself, we will also have an envelope box available at the venue.',
-        faq_q_12: 'I have more questions — who can I contact?',
-        faq_a_12: 'Feel free to reach out to us directly! You can contact Adhella at [your WhatsApp/email here] or Antonius at [his contact here].',
         footer:       'With love, Antonius &amp; Adhella &nbsp;✝&nbsp; 06 · 09 · 2026',
         dear_prefix:  'Dear',
       },
       id: {
-        nav_ceremony:     'Upacara',
+        nav_ceremony:     'Pemberkatan',
         eyebrow:          'Anda diundang ke',
         subtitle:         'Sakramen Pernikahan Kudus',
-        date:             'Sabtu, 06 September 2026',
+        date:             'Minggu, 06 September 2026',
         broadcast:        '✝  Juga akan disiarkan secara online  ✝',
         cd_days:          'Hari',
         cd_hours:         'Jam',
         cd_minutes:       'Menit',
         cd_seconds:       'Detik',
-        rsvp_deadline:    'Mohon konfirmasi sebelum 15 Agustus 2026',
+        rsvp_deadline:    'Mohon konfirmasi sebelum 28 Agustus 2026',
         rsvp_sub:         'Beritahu kami kehadiranmu',
         label_name:       'Nama Lengkap *',
         placeholder_name: 'Nama Anda',
@@ -862,25 +861,23 @@
         faq_q_2:  'Apakah ada resepsi?',
         faq_a_2:  'Kami hanya merayakan pernikahan dengan mengadakan Sakramen Pernikahan Kudus.',
         faq_q_3:  'Apa kode berpakaian yang disarankan?',
-        faq_a_3:  'Kami menganjurkan tamu untuk berpakaian formal atau semi-formal. Karena upacara berlangsung di gereja, mohon berpakaian dengan sopan dan rapi.',
+        faq_a_3:  'Pakaian formal atau semi-formal diperlukan, dengan penekanan pada kesopanan yang sesuai untuk suasana gereja.<br><br><strong>Wanita:</strong> Gaun koktail, gaun midi atau maxi yang elegan, atau blus formal dengan celana panjang atau rok. Panjang rok/gaun sebaiknya menutupi lutut atau lebih panjang. Mohon jaga garis leher tetap sopan dan hindari pakaian transparan, punggung terbuka, atau tanpa tali — blazer atau jaket bisa menjadi pilihan yang tepat.<br><br><strong>Pria:</strong> Setelan jas, atau kemeja formal dengan celana panjang dan sepatu pantofel. Blazer atau jas kasual sangat dianjurkan. Dasi bersifat opsional namun disambut baik.<br><br>Mohon hindari pakaian kasual (jeans, celana pendek, sneakers) serta pakaian yang terlalu ketat atau terbuka.<br><br>Tapi ingat, ini hanya rekomendasi — selama kamu hadir dan merayakan bersama kami, kami sudah sangat senang!',
         faq_q_4:  'Apakah tersedia tempat parkir?',
-        faq_a_4:  'Ya, tersedia tempat parkir di lokasi gereja. Kami sarankan untuk datang lebih awal karena tempat duduk berdasarkan urutan kedatangan.',
+        faq_a_4:  'Ya, tersedia tempat parkir di lokasi gereja. Selain itu, terdapat tempat parkir di BINUS ASO dan di Sport Center. Kami memang menyarankan untuk datang lebih awal, tapi tidak perlu terlalu awal karena akan ada banyak umat yang baru menyelesaikan misa pagi dan berusaha pulang.',
         faq_q_5:  'Apakah akan ada konsumsi yang disediakan?',
         faq_a_5:  'Sebelum acara selesai dan Anda bebas meninggalkan gereja, Anda akan mendapatkan kotak makan siang untuk dinikmati di rumah.',
         faq_q_6:  'Saya bukan Katolik maupun Kristen — apakah saya tetap bisa datang ke gereja?',
-        faq_a_6:  'Tentu! Acara ini terbuka dan inklusif untuk semua kalangan. Datanglah dan rayakan pernikahan kami bersama kami!',
+        faq_a_6:  'Tentu saja, acara pernikahan kami terbuka untuk semua orang. Datanglah dan rayakan pernikahan kami bersama kami!',
         faq_q_7:  'Jika saya bukan Katolik maupun Kristen, apakah ada hal yang perlu saya perhatikan?',
         faq_a_7:  'Ada beberapa hal yang perlu diperhatikan selama misa:<br><br><strong>Yang paling penting:</strong> Hanya umat Katolik yang telah dibaptis yang dapat menerima komuni. Jika Anda melihat orang-orang berdiri dan berbaris untuk menerima roti putih kecil berbentuk bulat, Anda cukup tetap duduk di tempat — itu tidak masalah sama sekali.<br><br>Untuk sisa upacara, Anda tidak perlu melakukan apa pun secara khusus. Jika Anda ingin mengikuti alur, Anda dipersilakan berdiri saat semua orang berdiri dan duduk saat semua orang duduk. Jika Anda memiliki kondisi medis yang membuat sulit untuk berdiri dan duduk berulang kali, tidak masalah jika Anda ingin duduk sepanjang upacara.',
         faq_q_8:  'Jika saya ingin hadir secara online, di mana link siaran langsung-nya?',
         faq_a_8:  'Kami akan mengirimkan link siaran ke email Anda sehari sebelum pernikahan.',
         faq_q_9:  'Kapan batas waktu konfirmasi kehadiran?',
-        faq_a_9:  'Mohon konfirmasi kehadiran sebelum 15 Agustus 2026 agar kami dapat mempersiapkan segalanya. Kami sangat mengapresiasi respons Anda tepat waktu!',
+        faq_a_9:  'Mohon konfirmasi kehadiran sebelum 28 Agustus 2026 agar kami dapat mempersiapkan segalanya. Kami sangat mengapresiasi respons Anda tepat waktu!',
         faq_q_10: 'Saya perlu mengubah konfirmasi kehadiran saya — apa yang harus saya lakukan?',
         faq_a_10: 'Tidak perlu khawatir! Cukup isi ulang formulir dengan alamat email yang sama yang Anda gunakan sebelumnya, dan data Anda akan diperbarui.',
         faq_q_11: 'Bolehkah saya memberikan hadiah untuk pernikahan kalian?',
         faq_a_11: 'Terima kasih sudah bertanya! Anda bisa melakukan transfer ke <strong>Mandiri 1640004263291 a/n Adhella Subalie</strong>. Jika Anda ingin memberikan sesuatu yang lain, jangan ragu untuk menghubungi kami secara pribadi. Pada hari H, kami juga akan menyediakan kotak amplop di venue.',
-        faq_q_12: 'Saya masih punya pertanyaan lain — siapa yang bisa saya hubungi?',
-        faq_a_12: 'Jangan ragu untuk menghubungi kami langsung! Anda bisa menghubungi Adhella di [your WhatsApp/email here] atau Antonius di [his contact here].',
         footer:       'Dengan cinta, Antonius &amp; Adhella &nbsp;✝&nbsp; 06 · 09 · 2026',
         dear_prefix:  'Kepada',
       }
@@ -915,6 +912,8 @@
         document.getElementById('dear-line').textContent = t.dear_prefix + ' ' + guestName + ',';
       }
     }
+
+    setLang(currentLang);
   </script>
 
 </body>

@@ -340,6 +340,7 @@
     }
 
     .field-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .field-hint { font-size: 0.82rem; color: var(--stone); line-height: 1.5; margin-top: 0.1rem; }
 
     label {
       font-family: 'Jost', sans-serif;
@@ -353,8 +354,9 @@
       background: var(--ivory);
       border: 1px solid var(--border);
       padding: 0.75rem 1rem;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 1.05rem;
       color: var(--ink);
       outline: none;
       transition: border-color 0.25s;
@@ -557,16 +559,17 @@
           <option value="No" data-i18n="opt_no"></option>
         </select>
       </div>
-      <div class="field-group">
+      <div class="field-group" id="guests-group" style="display:none">
         <label for="guests" data-i18n="label_guests"></label>
         <select id="guests">
           <option value="1">1</option>
           <option value="2">2</option>
         </select>
       </div>
-      <div class="field-group">
+      <div class="field-group" id="email-group" style="display:none">
         <label for="email" data-i18n="label_email"></label>
         <input type="email" id="email" name="email">
+        <p class="field-hint" data-i18n="email_hint"></p>
       </div>
       <button type="submit" class="btn" data-i18n="btn_rsvp"></button>
     </form>
@@ -702,6 +705,42 @@
     const ENTRY_GUESTSNUM  = 'entry.1889326488';
     const ENTRY_EMAIL      = 'entry.205926387';
 
+    /* ── Email field visibility ── */
+    (function() {
+      const attendanceEl = document.getElementById('attendance');
+      const emailGroup   = document.getElementById('email-group');
+      const emailEl      = document.getElementById('email');
+      const guestsGroup  = document.getElementById('guests-group');
+      const guestsEl     = document.getElementById('guests');
+      const DUMMY        = 'example@email.com';
+
+      attendanceEl.addEventListener('change', function() {
+        const val = this.value;
+        if (val === 'No') {
+          emailEl.value    = DUMMY;
+          emailEl.required = false;
+          emailGroup.style.display  = 'none';
+          guestsEl.value            = '1';
+          guestsGroup.style.display = 'none';
+        } else if (val === 'Online') {
+          if (emailEl.value === DUMMY) emailEl.value = '';
+          emailEl.required = true;
+          emailGroup.style.display  = '';
+          guestsEl.value            = '1';
+          guestsGroup.style.display = 'none';
+        } else if (val === 'Yes') {
+          if (emailEl.value === DUMMY) emailEl.value = '';
+          emailEl.required = true;
+          emailGroup.style.display  = '';
+          guestsGroup.style.display = '';
+        } else {
+          emailEl.required = false;
+          emailGroup.style.display  = 'none';
+          guestsGroup.style.display = 'none';
+        }
+      });
+    })();
+
     document.getElementById('rsvp-form').addEventListener('submit', function(e) {
       e.preventDefault();
 
@@ -709,11 +748,12 @@
       const attendance = document.getElementById('attendance').value;
       const guests     = document.getElementById('guests').value;
       const email      = document.getElementById('email').value.trim();
+      const emailReq   = document.getElementById('email').required;
 
-      if (!name || !attendance) {
+      if (!name || !attendance || (emailReq && !email)) {
         alert(currentLang === 'id'
-          ? 'Mohon isi nama dan konfirmasi kehadiran Anda.'
-          : 'Please fill in your name and attendance.');
+          ? 'Mohon isi semua kolom yang diperlukan.'
+          : 'Please fill in all required fields.');
         return;
       }
 
@@ -801,7 +841,8 @@
         opt_online:       'Can only attend online',
         opt_no:           'Unable to attend',
         label_guests:     'Number of Guests (including yourself)',
-        label_email:      'Your email for updates:',
+        label_email:      'Your email *',
+        email_hint:       'We\'ll send any updates and the online broadcast link to this address.',
         btn_rsvp:         'Send RSVP',
         success_msg:      'Thank you! We look forward to celebrating with you.',
         faq_label:        'Have questions?',
@@ -851,7 +892,8 @@
         opt_online:       'Hanya bisa hadir secara online',
         opt_no:           'Tidak dapat hadir',
         label_guests:     'Jumlah Tamu (termasuk Anda)',
-        label_email:      'Email Anda untuk pemberitahuan:',
+        label_email:      'Email Anda *',
+        email_hint:       'Kami akan mengirimkan informasi terbaru dan tautan siaran langsung ke alamat ini.',
         btn_rsvp:         'Kirim RSVP',
         success_msg:      'Terima kasih! Kami tidak sabar merayakannya bersamamu.',
         faq_label:        'Ada pertanyaan?',

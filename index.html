@@ -94,6 +94,29 @@
     }
     .darkmode-btn:hover { background: var(--cream); }
 
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 1.5rem;
+      z-index: 200;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--ivory);
+      color: var(--stone);
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 12px rgba(112,144,168,0.18);
+      transition: background 0.25s, opacity 0.3s, transform 0.3s;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(6px);
+      line-height: 1;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .back-to-top:hover { background: var(--cream); }
+
     /* ── Language Toggle ── */
     .lang-toggle {
       display: flex;
@@ -161,7 +184,7 @@
     }
 
     .info-card::before, .info-card::after {
-      content: '✝';
+      content: '\271D\FE0E';
       position: absolute;
       color: var(--gold);
       font-size: 0.7rem;
@@ -501,10 +524,11 @@
   </div>
 
   <nav>
-    <a href="#info" data-i18n="nav_ceremony"></a>
     <a href="#rsvp">RSVP</a>
     <a href="#faq">FAQ</a>
   </nav>
+
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
 
   <!-- ───────────────────────────── SECTION 1: INFO ── -->
   <section id="info">
@@ -576,7 +600,7 @@
     </form>
 
     <div id="form-success">
-      <span class="success-icon">✝</span>
+      <span class="success-icon">✝︎</span>
       <span data-i18n="success_msg"></span>
     </div>
   </section>
@@ -685,7 +709,7 @@
       const diff = weddingDate - now;
       if (diff <= 0) {
         document.getElementById('countdown').innerHTML =
-          '<p style="font-family:\'Cormorant Garamond\',serif;font-style:italic;color:var(--gold)">Today is the day! ✝</p>';
+          '<p style="font-family:\'Cormorant Garamond\',serif;font-style:italic;color:var(--gold)">Today is the day! ✝︎</p>';
         return;
       }
       const d = Math.floor(diff / 86400000);
@@ -828,7 +852,7 @@
         eyebrow:          'You are invited to',
         subtitle:         'Sacrament of Holy Matrimony',
         date:             'Sunday, 06 September 2026',
-        broadcast:        '✝  Will also be broadcasted online  ✝',
+        broadcast:        '✝︎  Will also be broadcasted online  ✝︎',
         cd_days:          'Days',
         cd_hours:         'Hours',
         cd_minutes:       'Minutes',
@@ -868,10 +892,10 @@
         faq_q_9:  'By when should I RSVP?',
         faq_a_9:  'Please RSVP by 28 August 2026 so we can plan accordingly. We truly appreciate your timely response!',
         faq_q_10: 'I need to update my RSVP — what should I do?',
-        faq_a_10: 'No worries! Simply refill the form using the same email address you used before, and your record will be updated.',
+        faq_a_10: 'No worries! Simply tell either one of us directly.',
         faq_q_11: 'Can I give a gift for your wedding?',
         faq_a_11: 'Thanks for asking! You are welcome to transfer to <strong>Mandiri 1640004263291 a/n Adhella Subalie</strong>. If you\'d like to give something else, feel free to contact us privately. On the day itself, we will also have an envelope box available at the venue.',
-        footer:       'With love, Antonius &amp; Adhella &nbsp;✝&nbsp; 06 · 09 · 2026',
+        footer:       'With love, Antonius &amp; Adhella &nbsp;✝︎&nbsp; 06 · 09 · 2026',
         dear_prefix:  'Dear',
       },
       id: {
@@ -879,7 +903,7 @@
         eyebrow:          'Anda diundang ke',
         subtitle:         'Sakramen Pernikahan Kudus',
         date:             'Minggu, 06 September 2026',
-        broadcast:        '✝  Juga akan disiarkan secara online  ✝',
+        broadcast:        '✝︎  Juga akan disiarkan secara online  ✝︎',
         cd_days:          'Hari',
         cd_hours:         'Jam',
         cd_minutes:       'Menit',
@@ -919,10 +943,10 @@
         faq_q_9:  'Kapan batas waktu konfirmasi kehadiran?',
         faq_a_9:  'Mohon konfirmasi kehadiran sebelum 28 Agustus 2026 agar kami dapat mempersiapkan segalanya. Kami sangat mengapresiasi respons Anda tepat waktu!',
         faq_q_10: 'Saya perlu mengubah konfirmasi kehadiran saya — apa yang harus saya lakukan?',
-        faq_a_10: 'Tidak perlu khawatir! Cukup isi ulang formulir dengan alamat email yang sama yang Anda gunakan sebelumnya, dan data Anda akan diperbarui.',
+        faq_a_10: 'Tidak perlu khawatir! Tinggal beritahu salah satu diantara kami secara langsung.',
         faq_q_11: 'Bolehkah saya memberikan hadiah untuk pernikahan kalian?',
         faq_a_11: 'Terima kasih sudah bertanya! Anda bisa melakukan transfer ke <strong>Mandiri 1640004263291 a/n Adhella Subalie</strong>. Jika Anda ingin memberikan sesuatu yang lain, jangan ragu untuk menghubungi kami secara pribadi. Pada hari H, kami juga akan menyediakan kotak amplop di venue.',
-        footer:       'Dengan cinta, Antonius &amp; Adhella &nbsp;✝&nbsp; 06 · 09 · 2026',
+        footer:       'Dengan cinta, Antonius &amp; Adhella &nbsp;✝︎&nbsp; 06 · 09 · 2026',
         dear_prefix:  'Kepada',
       }
     };
@@ -956,6 +980,17 @@
         document.getElementById('dear-line').textContent = t.dear_prefix + ' ' + guestName + ',';
       }
     }
+
+    /* ── Back to top ── */
+    (function() {
+      const btn = document.getElementById('back-to-top');
+      window.addEventListener('scroll', function() {
+        btn.classList.toggle('visible', window.scrollY > 300);
+      }, { passive: true });
+      btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
 
     setLang(currentLang);
   </script>

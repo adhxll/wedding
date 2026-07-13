@@ -516,7 +516,7 @@
 
   <!-- ── Top-right Controls ── -->
   <div class="controls">
-    <button class="darkmode-btn" id="darkmode-btn" onclick="toggleDark()" aria-label="Toggle dark mode">☾</button>
+    <button class="darkmode-btn" id="darkmode-btn" onclick="toggleDark()" aria-label="Toggle dark mode">🌙</button>
     <div class="lang-toggle">
       <button class="lang-btn active" onclick="setLang('en')">EN</button>
       <button class="lang-btn" onclick="setLang('id')">ID</button>
@@ -829,7 +829,7 @@
     /* ──────────────── DARK MODE ──────────────── */
     function applyTheme(dark) {
       document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      document.getElementById('darkmode-btn').textContent = dark ? '☀' : '☾';
+      document.getElementById('darkmode-btn').textContent = dark ? '☀️' : '🌒';
     }
 
     function toggleDark() {

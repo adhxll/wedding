@@ -727,10 +727,13 @@
       .wishes-panel  { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
       .wishes-stage  { flex: none; width: 100%; min-height: 200px; }
     }
+    @media (max-width: 700px) {
+      nav { gap: 1.2rem; }
+    }
     @media (max-width: 500px) {
       .info-card { padding: 2.5rem 1.5rem; }
       #info::before, #info::after { width: 60px; height: 60px; }
-      nav { gap: 1.5rem; }
+      nav { gap: 0.8rem; }
       .controls { right: 1rem; }
     }
   </style>

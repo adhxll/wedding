@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wedding Invite Sender — Antonius & Adhella</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #f4f4f4;
+      --card:   #ffffff;
+      --border: rgba(0,0,0,0.12);
+      --ink:    #1c1c1c;
+      --stone:  #6a6a6a;
+      --gold:   #767676;
+      --cream:  #e6e6e6;
+      --green:  #3a7d5a;
+      --red:    #b04a4a;
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      font-size: 14px;
+      background: var(--bg);
+      color: var(--ink);
+      padding: 2rem 1.5rem 4rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    h1 { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .subtitle { color: var(--stone); margin-bottom: 2rem; }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .card h2 {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-bottom: 1rem;
+    }
+
+    label { display: block; font-size: 0.82rem; color: var(--stone); margin-bottom: 0.3rem; }
+    input[type="text"], textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 0.55rem 0.75rem;
+      font-size: 0.9rem;
+      font-family: inherit;
+      background: var(--bg);
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+    textarea { resize: vertical; min-height: 130px; line-height: 1.6; }
+    input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--gold); }
+
+    .hint { font-size: 0.75rem; color: var(--stone); margin-top: -0.7rem; margin-bottom: 1rem; }
+
+    .notice {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      background: #fef9ec;
+      border: 1px solid #e8d98a;
+      border-radius: 7px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: #5a4a00;
+    }
+    .notice-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.05rem; }
+
+    .lang-switch {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .lang-opt {
+      font-size: 0.8rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--stone);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .lang-opt.active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+    .lang-opt:hover:not(.active) { background: var(--cream); }
+
+    /* Drop zone */
+    .drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .drop-zone:hover, .drop-zone.over { border-color: var(--gold); background: var(--bg); }
+    .drop-zone input { display: none; }
+    .drop-zone p { color: var(--stone); font-size: 0.88rem; }
+    .drop-zone strong { color: var(--ink); }
+
+    /* Stats bar */
+    .stats { display: flex; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .stat { font-size: 0.82rem; color: var(--stone); }
+    .stat strong { color: var(--ink); font-size: 1rem; }
+
+    /* Batch controls */
+    .batch-bar {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.5rem 1.1rem;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--ink);
+      cursor: pointer;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    button:hover { background: var(--cream); }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .btn-primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .btn-primary:hover { background: #333; }
+
+    .btn-green { background: var(--green); color: #fff; border-color: var(--green); }
+    .btn-green:hover { background: #2f6649; }
+
+    .btn-sm { font-size: 0.78rem; padding: 0.35rem 0.75rem; }
+
+    /* Search */
+    .search-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .search-row input { margin: 0; flex: 1; }
+
+    /* Table */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--stone);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr.sent td { opacity: 0.45; }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 99px;
+    }
+    .badge-pending { background: var(--cream); color: var(--stone); }
+    .badge-sent    { background: #d4edda; color: var(--green); }
+
+    .link-cell {
+      font-size: 0.75rem;
+      color: var(--stone);
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Preview modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--card);
+      border-radius: 10px;
+      padding: 1.75rem;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+    }
+    .modal h3 { font-size: 1rem; margin-bottom: 1rem; }
+    .modal-msg {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 1.25rem;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; flex-wrap: wrap; }
+
+    .empty { text-align: center; padding: 3rem 1rem; color: var(--stone); }
+
+    /* Progress bar */
+    .progress-bar-wrap {
+      height: 4px;
+      background: var(--cream);
+      border-radius: 99px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      background: var(--green);
+      border-radius: 99px;
+      transition: width 0.3s;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Wedding Invite Sender</h1>
+<p class="subtitle">Antonius Ivan Dharmala &amp; Adhella Subalie — 6 September 2026</p>
+
+<div class="notice">
+  <span class="notice-icon">⚠️</span>
+  <div>
+    <strong>Reloading this page will clear your uploaded guest list</strong> — you'll need to re-upload your CSV.
+    Your <strong>sent status is saved</strong> in this browser and will be restored automatically when you re-upload the same list.
+  </div>
+</div>
+
+<!-- ── Message Template ── -->
+<div class="card">
+  <h2>Message Template</h2>
+  <div class="lang-switch">
+    <button class="lang-opt active" data-lang="id">🇮🇩 Indonesian</button>
+    <button class="lang-opt" data-lang="en">🇬🇧 English</button>
+  </div>
+  <textarea id="msg-template"></textarea>
+  <p class="hint">Use <strong>{{name}}</strong> for the guest's name and <strong>{{link}}</strong> for their personalised link.</p>
+</div>
+
+<!-- ── CSV Upload ── -->
+<div class="card">
+  <h2>Guest List (CSV)</h2>
+  <div class="drop-zone" id="drop-zone">
+    <input type="file" id="csv-input" accept=".csv" />
+    <p><strong>Click to upload</strong> or drag &amp; drop a CSV file</p>
+    <p style="margin-top:0.4rem;font-size:0.75rem;">Expected columns: <code>name</code>, <code>phone</code> (any order, header row required)</p>
+  </div>
+</div>
+
+<!-- ── Guest Table ── -->
+<div class="card" id="list-card" style="display:none">
+  <h2>Guests</h2>
+
+  <div class="stats">
+    <div class="stat"><strong id="stat-total">0</strong> total</div>
+    <div class="stat"><strong id="stat-sent">0</strong> sent</div>
+    <div class="stat"><strong id="stat-pending">0</strong> pending</div>
+  </div>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+  </div>
+
+  <div class="batch-bar">
+    <button class="btn-green" id="btn-send-next">▶ Send Next</button>
+    <button id="btn-reset-all">Reset all to pending</button>
+    <button id="btn-export-pending">Export pending as CSV</button>
+  </div>
+
+  <div class="search-row">
+    <input type="text" id="search" placeholder="Search by name or phone…" />
+    <label style="margin:0;white-space:nowrap;display:flex;align-items:center;gap:0.4rem;cursor:pointer">
+      <input type="checkbox" id="hide-sent" /> Hide sent
+    </label>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Personalised link</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="guest-tbody"></tbody>
+    </table>
+  </div>
+  <div class="empty" id="empty-state" style="display:none">No guests match your search.</div>
+</div>
+
+<!-- ── Preview Modal ── -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h3 id="modal-title">Message preview</h3>
+    <div class="modal-msg" id="modal-msg"></div>
+    <div class="modal-actions">
+      <button id="modal-close">Cancel</button>
+      <button id="modal-copy">Copy message</button>
+      <button class="btn-green" id="modal-send">Open WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'wedding_invite_sent_v1';
+  const BASE_URL    = 'https://adhxll.github.io/wedding/';
+
+  const TEMPLATES = {
+    id: `Dear {{name}},
+
+Dengan penuh sukacita, kami mengundangmu untuk hadir dan memberikan doa restu dalam pemberkatan pernikahan kami:
+
+Antonius Ivan Dharmala & Adhella Subalie
+📅 Minggu, 6 September 2026
+🕙 11.00 – 13.00 WIB
+📍 Gereja Katolik Santo Laurensius, Tangerang Selatan
+
+Informasi lengkap dan konfirmasi kehadiran dapat diakses melalui undangan digital kami:
+{{link}}
+
+Kami sangat berharap dapat merayakan momen istimewa ini bersamamu 🕊️
+
+With love,
+Anton & Adhella`,
+
+    en: `Dear {{name}},
+
+With great joy, we invite you to join us and share your blessings at our holy matrimony:
+
+Antonius Ivan Dharmala & Adhella Subalie
+📅 Sunday, 6 September 2026
+🕙 11:00 AM – 1:00 PM WIB
+📍 Gereja Katolik Santo Laurensius, South Tangerang
+
+Full details and RSVP are available through our digital invitation:
+{{link}}
+
+We truly hope to celebrate this special moment with you. 🕊️
+
+With love,
+Anton & Adhella`,
+  };
+
+  // Track custom edits per language
+  const customTemplates = { id: TEMPLATES.id, en: TEMPLATES.en };
+  let activeLang = 'id';
+
+  const tmplEl = document.getElementById('msg-template');
+  tmplEl.value = customTemplates[activeLang];
+
+  document.querySelectorAll('.lang-opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Save current edits before switching
+      customTemplates[activeLang] = tmplEl.value;
+      activeLang = btn.dataset.lang;
+      tmplEl.value = customTemplates[activeLang];
+      document.querySelectorAll('.lang-opt').forEach(b => b.classList.toggle('active', b === btn));
+    });
+  });
+
+  let guests       = [];
+  let sentSet      = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+  let currentGuest = null;
+
+  /* ── Helpers ── */
+  function normalisePhone(raw) {
+    let p = String(raw).replace(/[\s\-().+]/g, '');
+    if (p.startsWith('0')) p = '62' + p.slice(1);
+    return p;
+  }
+
+  function buildLink(name) {
+    return BASE_URL + '?to=' + encodeURIComponent(name);
+  }
+
+  function buildMessage(name) {
+    return document.getElementById('msg-template').value
+      .replace(/{{name}}/g, name)
+      .replace(/{{link}}/g, buildLink(name));
+  }
+
+  function waUrl(phone, msg) {
+    return 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg);
+  }
+
+  function saveSent() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([...sentSet]));
+  }
+
+  function esc(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  /* ── CSV parsing ── */
+  function parseCSV(text) {
+    const lines = text.trim().split(/\r?\n/);
+    if (lines.length < 2) return [];
+
+    const headers  = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/[^a-z0-9]/g, ''));
+    const nameIdx  = headers.findIndex(h => ['name','nama','guest','guestname'].includes(h));
+    const phoneIdx = headers.findIndex(h => ['phone','phonenumber','whatsapp','wa','hp','nohp','mobile','number'].includes(h));
+
+    if (nameIdx === -1 || phoneIdx === -1) {
+      alert('Could not find "name" and "phone" columns.\n\nFound: ' + headers.join(', ') + '\n\nPlease rename your columns to "name" and "phone".');
+      return [];
+    }
+
+    const rows = [];
+    for (let i = 1; i < lines.length; i++) {
+      const cols = lines[i].split(',').map(c => c.trim().replace(/^"|"$/g, ''));
+      const name  = cols[nameIdx]  || '';
+      const phone = cols[phoneIdx] || '';
+      if (name && phone) rows.push({ name, phone, normPhone: normalisePhone(phone) });
+    }
+    return rows;
+  }
+
+  /* ── CSV upload ── */
+  function handleFile(file) {
+    if (!file || !file.name.endsWith('.csv')) { alert('Please upload a .csv file.'); return; }
+    const reader = new FileReader();
+    reader.onload = e => {
+      const parsed = parseCSV(e.target.result);
+      if (!parsed.length) return;
+      guests = parsed;
+      document.getElementById('list-card').style.display = '';
+      renderTable();
+    };
+    reader.readAsText(file);
+  }
+
+  const dropZone = document.getElementById('drop-zone');
+  const csvInput = document.getElementById('csv-input');
+
+  dropZone.addEventListener('click', () => csvInput.click());
+  csvInput.addEventListener('change', e => handleFile(e.target.files[0]));
+  dropZone.addEventListener('dragover',  e => { e.preventDefault(); dropZone.classList.add('over'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('over'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('over');
+    handleFile(e.dataTransfer.files[0]);
+  });
+
+  /* ── Render table ── */
+  function renderTable() {
+    const query    = document.getElementById('search').value.toLowerCase();
+    const hideSent = document.getElementById('hide-sent').checked;
+    const tbody    = document.getElementById('guest-tbody');
+    tbody.innerHTML = '';
+
+    let visible = 0;
+    guests.forEach((g, i) => {
+      const isSent = sentSet.has(g.normPhone);
+      const matchQ = g.name.toLowerCase().includes(query) || g.phone.includes(query);
+      if (!matchQ || (hideSent && isSent)) return;
+      visible++;
+
+      const tr = document.createElement('tr');
+      if (isSent) tr.classList.add('sent');
+
+      const link = buildLink(g.name);
+      tr.innerHTML = `
+        <td style="color:var(--stone)">${i + 1}</td>
+        <td>${esc(g.name)}</td>
+        <td>${esc(g.phone)}</td>
+        <td class="link-cell" title="${esc(link)}">${esc(link)}</td>
+        <td><span class="badge ${isSent ? 'badge-sent' : 'badge-pending'}">${isSent ? 'Sent' : 'Pending'}</span></td>
+        <td>
+          <button class="btn-sm" data-idx="${i}" data-action="preview">Preview &amp; Send</button>
+          ${isSent ? `<button class="btn-sm" data-idx="${i}" data-action="unsend" style="margin-left:0.4rem">Undo</button>` : ''}
+        </td>`;
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById('empty-state').style.display = visible === 0 ? '' : 'none';
+    updateStats();
+  }
+
+  function updateStats() {
+    const total   = guests.length;
+    const sent    = guests.filter(g => sentSet.has(g.normPhone)).length;
+    const pending = total - sent;
+    document.getElementById('stat-total').textContent   = total;
+    document.getElementById('stat-sent').textContent    = sent;
+    document.getElementById('stat-pending').textContent = pending;
+    document.getElementById('progress-bar').style.width = total ? (sent / total * 100) + '%' : '0%';
+  }
+
+  /* ── Modal ── */
+  function openModal(guest) {
+    currentGuest = guest;
+    document.getElementById('modal-title').textContent = 'Message for ' + guest.name;
+    document.getElementById('modal-msg').textContent   = buildMessage(guest.name);
+    document.getElementById('modal').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+    currentGuest = null;
+  }
+
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  document.getElementById('modal').addEventListener('click', e => {
+    if (e.target === document.getElementById('modal')) closeModal();
+  });
+
+  document.getElementById('modal-copy').addEventListener('click', () => {
+    navigator.clipboard.writeText(buildMessage(currentGuest.name)).then(() => {
+      const btn = document.getElementById('modal-copy');
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = 'Copy message'; }, 1500);
+    });
+  });
+
+  document.getElementById('modal-send').addEventListener('click', () => {
+    const g = currentGuest;
+    window.open(waUrl(g.normPhone, buildMessage(g.name)), '_blank');
+    sentSet.add(g.normPhone);
+    saveSent();
+    closeModal();
+    renderTable();
+  });
+
+  /* ── Table click delegation ── */
+  document.getElementById('guest-tbody').addEventListener('click', e => {
+    const btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+    const g = guests[+btn.dataset.idx];
+    if (btn.dataset.action === 'preview') openModal(g);
+    if (btn.dataset.action === 'unsend') {
+      sentSet.delete(g.normPhone);
+      saveSent();
+      renderTable();
+    }
+  });
+
+  /* ── Send Next (batch) ── */
+  document.getElementById('btn-send-next').addEventListener('click', () => {
+    const next = guests.find(g => !sentSet.has(g.normPhone));
+    if (!next) { alert('All guests have been sent an invitation! 🎉'); return; }
+    openModal(next);
+  });
+
+  /* ── Reset all ── */
+  document.getElementById('btn-reset-all').addEventListener('click', () => {
+    if (!confirm('Reset all guests back to pending? This will clear your sent history.')) return;
+    sentSet.clear();
+    saveSent();
+    renderTable();
+  });
+
+  /* ── Export pending ── */
+  document.getElementById('btn-export-pending').addEventListener('click', () => {
+    const pending = guests.filter(g => !sentSet.has(g.normPhone));
+    if (!pending.length) { alert('No pending guests.'); return; }
+    const csv = 'name,phone\n' + pending.map(g => `"${g.name}","${g.phone}"`).join('\n');
+    const a = document.createElement('a');
+    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    a.download = 'pending-guests.csv';
+    a.click();
+  });
+
+  /* ── Search / filter ── */
+  document.getElementById('search').addEventListener('input', renderTable);
+  document.getElementById('hide-sent').addEventListener('change', renderTable);
+</script>
+</body>
+</html>

@@ -346,6 +346,33 @@
       margin-bottom: 0.6rem;
     }
 
+    .bible-verse {
+      text-align: center;
+      border-top: 1px solid var(--border);
+      margin-top: 2.2rem;
+      padding-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .bible-verse-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.05rem, 2.6vw, 1.3rem);
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.9;
+      max-width: 680px;
+    }
+    .bible-verse-ref {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--stone);
+    }
+
     .section-sub {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
@@ -789,6 +816,11 @@
         <div class="cd-unit"><span class="cd-num" id="cd-h">—</span><span class="cd-label" data-i18n="cd_hours"></span></div>
         <div class="cd-unit"><span class="cd-num" id="cd-m">—</span><span class="cd-label" data-i18n="cd_minutes"></span></div>
         <div class="cd-unit"><span class="cd-num" id="cd-s">—</span><span class="cd-label" data-i18n="cd_seconds"></span></div>
+      </div>
+
+      <div class="bible-verse">
+        <p class="bible-verse-text">"Love is patient, love is kind. It does not envy, it does not boast, it is not proud. It is not self-seeking, it is not easily angered, it keeps no record of wrongs. Love does not delight in evil but rejoices with the truth. Love always protects, always hopes, always perseveres."</p>
+        <p class="bible-verse-ref">— 1 Corinthians 13:4–7</p>
       </div>
     </div>
   </section>

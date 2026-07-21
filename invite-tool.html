@@ -263,6 +263,13 @@
 <div class="notice">
   <span class="notice-icon">⚠️</span>
   <div>
+    <strong>This tool only works with WhatsApp Web on a desktop browser.</strong>
+    Make sure you are logged in at <a href="https://web.whatsapp.com" target="_blank" style="color:inherit;font-weight:600">web.whatsapp.com</a> before sending.
+  </div>
+</div>
+<div class="notice">
+  <span class="notice-icon">⚠️</span>
+  <div>
     <strong>Reloading this page will clear your uploaded guest list</strong> — you'll need to re-upload your CSV.
     Your <strong>sent status is saved</strong> in this browser and will be restored automatically when you re-upload the same list.
   </div>
@@ -426,7 +433,18 @@ Anton & Adhella`,
   }
 
   function waUrl(phone, msg) {
-    return 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg);
+    // Encode URL-special chars only; leave emoji as raw Unicode so WhatsApp renders them correctly
+    const encoded = msg
+      .replace(/%/g,  '%25')
+      .replace(/&/g,  '%26')
+      .replace(/\+/g, '%2B')
+      .replace(/#/g,  '%23')
+      .replace(/=/g,  '%3D')
+      .replace(/\?/g, '%3F')
+      .replace(/ /g,  '%20')
+      .replace(/\n/g, '%0A')
+      .replace(/\r/g, '');
+    return 'https://web.whatsapp.com/send?phone=' + phone + '&text=' + encoded;
   }
 
   function saveSent() {
